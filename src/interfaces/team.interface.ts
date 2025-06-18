@@ -4,7 +4,9 @@ import { timestampsZod } from "../database/helpers/timestamps.helpers";
 export const teamSchema = z.object({
 	id: z.string().uuid(),
 	teamName: z.string().min(3, "Team name must be at least 3 characters long"),
-	color: z.string(),
+	color: z
+		.string()
+		.regex(/^#?([0-9a-fA-F]{3}){1,2}$/, "The color has to be in a valid hexadecimal format"),
 	...timestampsZod,
 });
 
