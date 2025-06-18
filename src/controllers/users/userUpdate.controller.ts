@@ -1,18 +1,24 @@
 import type { Context } from "hono";
+import { ZodError } from "zod";
+import { updateUserSchema } from "../../interfaces/user.interface";
 import { updateUserService } from "../../services/users/userUpdate.service";
+import { uuidValidation } from "../../utils/validations/uuid.validation";
 
 export const updateUserController = async (c: Context) => {
 	const userId: string = c.req.param("id");
 	const body = await c.req.json();
 
 	try {
-		const updatedUser = await updateUserService(userId, body);
+		await uuidValidation(userId);
+		const validatedBody = updateUserSchema.parse(body);
+
+		const updatedUser = await updateUserService(userId, validatedBody);
 
 		return c.json(updatedUser, 200);
 	} catch (err) {
 		if (err instanceof Error) {
-			if (err.message === "No valid property provided for update.") {
-				return c.json({ message: err.message }, 400);
+			if (err instanceof ZodError) {
+				return c.json({ message: err.issues[0].message }, 400);
 			}
 
 			if (err.message === "User not found.") {

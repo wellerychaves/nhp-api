@@ -8,10 +8,6 @@ export const listUserController = async (c: Context) => {
 		return c.json(users, 200);
 	} catch (err) {
 		if (err instanceof Error) {
-			if (err.message === "User not found.") {
-				return c.json({ message: err.message }, 404);
-			}
-
 			return c.json({ message: `An unexpected error occurred: ${err.message}` }, 500);
 		}
 		return c.json({ message: "An unknown error has occurred." }, 500);
