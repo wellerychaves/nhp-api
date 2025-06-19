@@ -1,10 +1,10 @@
 import { eq } from "drizzle-orm";
 import { db } from "../../database";
 import { usersTable } from "../../database/schemas/users.schema";
-import type { ICreateUserSchema } from "../../interfaces/user.interface";
+import type { ICreateUser } from "../../interfaces/user.interface";
 import { hashPassword } from "../../utils/passwordUtils";
 
-export const createUserService = async (input: ICreateUserSchema) => {
+export const createUserService = async (input: ICreateUser) => {
 	const emailAlreadyExists = await db
 		.select()
 		.from(usersTable)

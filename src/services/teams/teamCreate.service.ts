@@ -1,8 +1,8 @@
 import { db } from "../../database";
 import { teamsTable } from "../../database/schemas/teams.schema";
-import type { ICreateTeamSchema } from "../../interfaces/team.interface";
+import type { ICreateTeam } from "../../interfaces/team.interface";
 
-export const createTeamService = async (input: ICreateTeamSchema) => {
+export const createTeamService = async (input: ICreateTeam) => {
 	const newTeamData = {
 		id: Bun.randomUUIDv7(),
 		teamName: input.teamName,
