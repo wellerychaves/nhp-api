@@ -13,4 +13,6 @@ export const updateMatchService = async (matchId: string, body: Partial<IMatch>)
 	if (match.length === 0) {
 		throw new Error("Match not found.");
 	}
+
+	return match;
 };
