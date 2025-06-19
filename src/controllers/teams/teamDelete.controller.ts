@@ -17,7 +17,7 @@ export const deleteTeamController = async (c: Context) => {
 				return c.json({ message: err.issues }, 400);
 			}
 
-			if (err.message === "Team Not found.") {
+			if (err.message === "Team not found.") {
 				return c.json({ message: err.message }, 404);
 			}
 
