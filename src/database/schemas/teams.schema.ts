@@ -1,8 +1,8 @@
-import { pgTable, varchar } from "drizzle-orm/pg-core";
+import { pgTable, uuid, varchar } from "drizzle-orm/pg-core";
 import { timestampsDrizzle } from "../helpers/timestamps.helpers";
 
 export const teamsTable = pgTable("teams", {
-	id: varchar().primaryKey(),
+	id: uuid().primaryKey(),
 	teamName: varchar().notNull(),
 	color: varchar().notNull(),
 	...timestampsDrizzle,
