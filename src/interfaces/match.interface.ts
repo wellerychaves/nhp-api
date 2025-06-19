@@ -17,5 +17,11 @@ export const createMatchSchema = matchSchema.pick({
 	teamBId: true,
 });
 
+export const updateMatchSchema = createMatchSchema
+	.partial()
+	.refine((data) => Object.keys(data).length > 0, {
+		message: "No valid property provided for update.",
+	});
+
 export type IMatch = z.infer<typeof matchSchema>;
 export type ICreateMatch = z.infer<typeof createMatchSchema>;
