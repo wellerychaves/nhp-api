@@ -1,5 +1,5 @@
 import type { Context } from "hono";
-import { ZodError } from "zod";
+import { z } from "zod/v4";
 import { createUserSchema } from "../../interfaces/user.interface";
 import { createUserService } from "../../services/users/userCreate.service";
 
@@ -13,8 +13,8 @@ export const createUserController = async (c: Context) => {
 		return c.json(user, 201);
 	} catch (err) {
 		if (err instanceof Error) {
-			if (err instanceof ZodError) {
-				return c.json({ message: err.issues[0].message }, 400);
+			if (err instanceof z.ZodError) {
+				return c.json({ message: err.issues }, 400);
 			}
 
 			return c.json({ message: `An unexpected error occurred: ${err.message}` }, 500);

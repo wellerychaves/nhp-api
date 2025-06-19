@@ -1,5 +1,5 @@
 import type { Context } from "hono";
-import { ZodError } from "zod";
+import { z } from "zod/v4";
 import { listOneTeamService } from "../../services/teams/teamListOne.service";
 import { uuidValidation } from "../../utils/validations/uuid.validation";
 
@@ -13,8 +13,8 @@ export const listOneTeamController = async (c: Context) => {
 		return c.json(team, 200);
 	} catch (err) {
 		if (err instanceof Error) {
-			if (err instanceof ZodError) {
-				return c.json({ message: err.issues[0].message }, 400);
+			if (err instanceof z.ZodError) {
+				return c.json({ message: err.issues }, 400);
 			}
 
 			if (err.message === "Team not found.") {

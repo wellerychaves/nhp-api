@@ -1,5 +1,5 @@
 import type { Context } from "hono";
-import { ZodError } from "zod";
+import { z} from "zod/v4";
 import { updateUserSchema } from "../../interfaces/user.interface";
 import { updateUserService } from "../../services/users/userUpdate.service";
 import { uuidValidation } from "../../utils/validations/uuid.validation";
@@ -17,8 +17,8 @@ export const updateUserController = async (c: Context) => {
 		return c.json(updatedUser, 200);
 	} catch (err) {
 		if (err instanceof Error) {
-			if (err instanceof ZodError) {
-				return c.json({ message: err.issues[0].message }, 400);
+			if (err instanceof z.ZodError) {
+				return c.json({ message: err.issues }, 400);
 			}
 
 			if (err.message === "User not found.") {

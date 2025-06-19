@@ -1,5 +1,5 @@
 import type { Context } from "hono";
-import { ZodError } from "zod";
+import { z } from "zod/v4";
 import { createTeamSchema } from "../../interfaces/team.interface";
 import { createTeamService } from "../../services/teams/teamCreate.service";
 
@@ -13,8 +13,8 @@ export const createTeamController = async (c: Context) => {
 		return c.json(team, 201);
 	} catch (err) {
 		if (err instanceof Error) {
-			if (err instanceof ZodError) {
-				return c.json({ message: err.issues[0].message }, 400);
+			if (err instanceof z.ZodError) {
+				return c.json({ message: err.issues }, 400);
 			}
 
 			return c.json({ message: `An unexpected error occurred: ${err.message}` }, 500);
