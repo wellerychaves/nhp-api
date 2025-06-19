@@ -5,13 +5,12 @@ import { uuidValidation } from "../../utils/validations/uuid.validation";
 
 export const deleteUserController = async (c: Context) => {
 	const userId: string = c.req.param("id");
-	uuidValidation(userId);
 
 	try {
 		await uuidValidation(userId);
 		await deleteUserService(userId);
 
-		return c.json({ message: "User Deleted" }, 200);
+		return c.json({ message: "User deleted" }, 200);
 	} catch (err) {
 		if (err instanceof Error) {
 			if (err instanceof z.ZodError) {

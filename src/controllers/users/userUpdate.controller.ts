@@ -1,5 +1,5 @@
 import type { Context } from "hono";
-import { z} from "zod/v4";
+import { z } from "zod/v4";
 import { updateUserSchema } from "../../interfaces/user.interface";
 import { updateUserService } from "../../services/users/userUpdate.service";
 import { uuidValidation } from "../../utils/validations/uuid.validation";
