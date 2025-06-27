@@ -11,7 +11,22 @@ export const createMatchService = async (input: ICreateMatch) => {
 		teamBId: input.teamBId,
 	};
 
-	const newMatch = await db.insert(matchesTable).values(newMatchData).returning();
+	const [insertedMatch] = await db
+		.insert(matchesTable)
+		.values(newMatchData)
+		.returning({ id: matchesTable.id });
 
-	return newMatch;
+	if (!insertedMatch || !insertedMatch.id) {
+		throw new Error("Failed to create match: no ID returned after insertion.");
+	}
+
+	const matchWithTeams = await db.query.matchesTable.findFirst({
+		where: (match, { eq }) => eq(match.id, insertedMatch.id),
+		with: {
+			teamA: true,
+			teamB: true,
+		},
+	});
+
+	return matchWithTeams;
 };

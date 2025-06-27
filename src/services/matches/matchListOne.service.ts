@@ -1,13 +1,19 @@
-import { eq } from "drizzle-orm";
 import { db } from "../../database";
-import { matchesTable } from "../../database/schemas/matches.schema";
 
 export const listOneMatchService = async (matchId: string) => {
-	const match = await db.select().from(matchesTable).where(eq(matchesTable.id, matchId));
+	const match = await db.query.matchesTable.findFirst({
+		where: (match, { eq }) => eq(match.id, matchId),
+		with: {
+			teamA: true,
+			teamB: true,
+		},
+	});
 
-	if (match.length === 0) {
+	if (!match) {
 		throw new Error("Match not found.");
 	}
 
-	return match;
+	const { teamAId, teamBId, ...rest } = match;
+
+	return rest;
 };
