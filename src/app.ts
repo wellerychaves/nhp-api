@@ -1,11 +1,16 @@
+import { serve } from "bun";
 import { Hono } from "hono";
-//import { cors } from "hono/cors";
-
+import { cors } from "hono/cors";
 import { routes } from "./routes/index.routes";
+
+const port = process.env.PORT || 3000;
 
 const app = new Hono();
 app.use(
-	"/",
+	"*",
+	cors({
+		origin: "*",
+	}),
 	/* cors({
 		origin: "https://nhp.wellery.site/",
 	}), */
@@ -17,4 +22,7 @@ app.get("/", (c) => {
 	return c.text("Hello Mizera!");
 });
 
-export default app;
+serve({
+	fetch: app.fetch,
+	port: port,
+});

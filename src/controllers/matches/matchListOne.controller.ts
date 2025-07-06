@@ -1,16 +1,16 @@
 import type { Context } from "hono";
 import { z } from "zod/v4";
-import { deleteUserService } from "../../services/users/userDelete.service";
+import { listOneMatchService } from "../../services/matches/matchListOne.service";
 import { uuidValidation } from "../../utils/validations/uuid.validation";
 
-export const deleteUserController = async (c: Context) => {
-	const userId: string = c.req.param("id");
+export const listOneMatchController = async (c: Context) => {
+	const matchId: string = c.req.param("id");
 
 	try {
-		await uuidValidation(userId);
-		await deleteUserService(userId);
+		await uuidValidation(matchId);
+		const match = await listOneMatchService(matchId);
 
-		return c.json({ message: "User deleted" }, 200);
+		return c.json(match, 200);
 	} catch (err) {
 		if (err instanceof Error) {
 			if (err instanceof z.ZodError) {
@@ -23,6 +23,7 @@ export const deleteUserController = async (c: Context) => {
 
 			return c.json({ message: `An unexpected error occurred: ${err.message}` }, 500);
 		}
+
 		return c.json({ message: "An unknown error has occurred." }, 500);
 	}
 };

@@ -1,16 +1,131 @@
 {
-	"id": "beb385c3-d081-4dd0-99be-4fd6fc66c406",
+	"id": "927bb55e-fa64-491a-9d27-4f152ab174e2",
 	"prevId": "00000000-0000-0000-0000-000000000000",
 	"version": "7",
 	"dialect": "postgresql",
 	"tables": {
+		"public.matches": {
+			"name": "matches",
+			"schema": "",
+			"columns": {
+				"id": {
+					"name": "id",
+					"type": "uuid",
+					"primaryKey": true,
+					"notNull": true
+				},
+				"date": {
+					"name": "date",
+					"type": "date",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"time": {
+					"name": "time",
+					"type": "time",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"teamAId": {
+					"name": "teamAId",
+					"type": "uuid",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"teamBId": {
+					"name": "teamBId",
+					"type": "uuid",
+					"primaryKey": false,
+					"notNull": false
+				}
+			},
+			"indexes": {},
+			"foreignKeys": {},
+			"compositePrimaryKeys": {},
+			"uniqueConstraints": {},
+			"policies": {},
+			"checkConstraints": {},
+			"isRLSEnabled": false
+		},
+		"public.teams": {
+			"name": "teams",
+			"schema": "",
+			"columns": {
+				"id": {
+					"name": "id",
+					"type": "uuid",
+					"primaryKey": true,
+					"notNull": true
+				},
+				"teamName": {
+					"name": "teamName",
+					"type": "varchar",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"color": {
+					"name": "color",
+					"type": "varchar",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"imageUrl": {
+					"name": "imageUrl",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"points": {
+					"name": "points",
+					"type": "integer",
+					"primaryKey": false,
+					"notNull": false,
+					"default": 0
+				},
+				"wins": {
+					"name": "wins",
+					"type": "integer",
+					"primaryKey": false,
+					"notNull": false,
+					"default": 0
+				},
+				"defeats": {
+					"name": "defeats",
+					"type": "integer",
+					"primaryKey": false,
+					"notNull": false,
+					"default": 0
+				},
+				"createdAt": {
+					"name": "createdAt",
+					"type": "timestamp",
+					"primaryKey": false,
+					"notNull": true,
+					"default": "now()"
+				},
+				"updatedAt": {
+					"name": "updatedAt",
+					"type": "timestamp",
+					"primaryKey": false,
+					"notNull": true,
+					"default": "now()"
+				}
+			},
+			"indexes": {},
+			"foreignKeys": {},
+			"compositePrimaryKeys": {},
+			"uniqueConstraints": {},
+			"policies": {},
+			"checkConstraints": {},
+			"isRLSEnabled": false
+		},
 		"public.users": {
 			"name": "users",
 			"schema": "",
 			"columns": {
 				"id": {
 					"name": "id",
-					"type": "varchar",
+					"type": "uuid",
 					"primaryKey": true,
 					"notNull": true
 				},
@@ -39,15 +154,15 @@
 					"notNull": false,
 					"default": false
 				},
-				"updatedAt": {
-					"name": "updatedAt",
+				"createdAt": {
+					"name": "createdAt",
 					"type": "timestamp",
 					"primaryKey": false,
 					"notNull": true,
 					"default": "now()"
 				},
-				"createdAt": {
-					"name": "createdAt",
+				"updatedAt": {
+					"name": "updatedAt",
 					"type": "timestamp",
 					"primaryKey": false,
 					"notNull": true,

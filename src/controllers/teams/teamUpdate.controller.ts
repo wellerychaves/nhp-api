@@ -1,27 +1,27 @@
 import type { Context } from "hono";
 import { z } from "zod/v4";
-import { updateUserSchema } from "../../interfaces/user.interface";
-import { updateUserService } from "../../services/users/userUpdate.service";
+import { updateTeamSchema } from "../../interfaces/team.interface";
+import { updatedTeamService } from "../../services/teams/teamUpdate.service";
 import { uuidValidation } from "../../utils/validations/uuid.validation";
 
-export const updateUserController = async (c: Context) => {
-	const userId: string = c.req.param("id");
+export const updateTeamController = async (c: Context) => {
+	const teamId: string = c.req.param("id");
 	const body = await c.req.json();
 
 	try {
-		await uuidValidation(userId);
-		const validatedBody = updateUserSchema.parse(body);
+		await uuidValidation(teamId);
+		const validatedBody = updateTeamSchema.parse(body);
 
-		const updatedUser = await updateUserService(userId, validatedBody);
+		const updatedTeam = await updatedTeamService(teamId, validatedBody);
 
-		return c.json(updatedUser, 200);
+		return c.json(updatedTeam, 200);
 	} catch (err) {
 		if (err instanceof Error) {
 			if (err instanceof z.ZodError) {
 				return c.json({ message: err.issues }, 400);
 			}
 
-			if (err.message === "User not found.") {
+			if (err.message === "Team not found.") {
 				return c.json({ message: err.message }, 404);
 			}
 

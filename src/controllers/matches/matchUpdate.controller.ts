@@ -1,16 +1,20 @@
 import type { Context } from "hono";
 import { z } from "zod/v4";
-import { deleteUserService } from "../../services/users/userDelete.service";
+import { updateMatchSchema } from "../../interfaces/match.interface";
+import { updateMatchService } from "../../services/matches/matchUpdate.service";
 import { uuidValidation } from "../../utils/validations/uuid.validation";
 
-export const deleteUserController = async (c: Context) => {
-	const userId: string = c.req.param("id");
+export const updateMatchController = async (c: Context) => {
+	const matchId: string = c.req.param("id");
+	const body = await c.req.json();
 
 	try {
-		await uuidValidation(userId);
-		await deleteUserService(userId);
+		await uuidValidation(matchId);
+		const validatedBody = updateMatchSchema.parse(body);
 
-		return c.json({ message: "User deleted" }, 200);
+		const updatedMatch = await updateMatchService(matchId, validatedBody);
+
+		return c.json(updatedMatch, 200);
 	} catch (err) {
 		if (err instanceof Error) {
 			if (err instanceof z.ZodError) {

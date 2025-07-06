@@ -1,16 +1,10 @@
 import { eq } from "drizzle-orm";
 import { db } from "../../database";
 import { usersTable } from "../../database/schemas/users.schema";
-import { createUserSchema, type ICreateUserSchema } from "../../interfaces/user.interface";
+import type { ICreateUser } from "../../interfaces/user.interface";
 import { hashPassword } from "../../utils/passwordUtils";
 
-export const createUserService = async (input: ICreateUserSchema) => {
-	const validation = createUserSchema.safeParse(input);
-
-	if (!validation.success) {
-		throw new Error(`Validation error: ${validation.error.message}`);
-	}
-
+export const createUserService = async (input: ICreateUser) => {
 	const emailAlreadyExists = await db
 		.select()
 		.from(usersTable)

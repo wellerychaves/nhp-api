@@ -1,8 +1,8 @@
-import { boolean, pgTable, varchar } from "drizzle-orm/pg-core";
+import { boolean, pgTable, uuid, varchar } from "drizzle-orm/pg-core";
 import { timestampsDrizzle } from "../helpers/timestamps.helpers";
 
 export const usersTable = pgTable("users", {
-	id: varchar().primaryKey(),
+	id: uuid().primaryKey(),
 	userName: varchar().notNull(),
 	email: varchar().unique().notNull(),
 	password: varchar().notNull(),

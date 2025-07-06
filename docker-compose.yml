@@ -1,0 +1,36 @@
+services:
+  nhp-api:
+    build: .
+    image: nhp-api
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    env_file:
+      - ./.env
+    environment:
+      TZ: UTC
+    networks:
+      - app-network
+    depends_on:
+      - db
+
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: nhp
+      POSTGRES_USER: wellery
+      POSTGRES_PASSWORD: mizeraEn
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+volumes:
+  pgdata:
+
+networks:
+  app-network:
+    driver: bridge

@@ -2,19 +2,20 @@
 	"name": "nhp-api",
 	"scripts": {
 		"dev": "bun run --watch src/app.ts",
-		"lint": "bunx biome check --write ."
+		"lint": "bunx biome check --write .",
+		"migrate": "bunx drizzle-kit migrate"
 	},
 	"dependencies": {
 		"@hono/zod-validator": "^0.7.0",
 		"drizzle-orm": "^0.44.2",
-		"hono": "^4.7.11",
-		"pg": "^8.16.0",
-		"zod": "^3.25.67"
+		"hono": "^4.8.4",
+		"pg": "^8.16.3",
+		"zod": "^3.25.74"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.0.0",
-		"@types/bun": "^1.2.16",
+		"@biomejs/biome": "2.0.6",
+		"@types/bun": "^1.2.18",
 		"@types/pg": "^8.15.4",
-		"drizzle-kit": "^0.31.1"
+		"drizzle-kit": "^0.31.4"
 	}
 }

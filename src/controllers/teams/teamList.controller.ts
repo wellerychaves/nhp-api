@@ -1,11 +1,11 @@
 import type { Context } from "hono";
-import { listUserService } from "../../services/users/userList.service";
+import { listTeamService } from "../../services/teams/teamList.service";
 
-export const listUserController = async (c: Context) => {
+export const listTeamController = async (c: Context) => {
 	try {
-		const users = await listUserService();
+		const teams = await listTeamService();
 
-		return c.json(users, 200);
+		return c.json(teams, 200);
 	} catch (err) {
 		if (err instanceof Error) {
 			return c.json({ message: `An unexpected error occurred: ${err.message}` }, 500);
