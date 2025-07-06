@@ -17,6 +17,10 @@ export const createUserController = async (c: Context) => {
 				return c.json({ message: err.issues }, 400);
 			}
 
+			if (err.message === "This email is already being used") {
+				return c.json({ message: err.message }, 409);
+			}
+
 			return c.json({ message: `An unexpected error occurred: ${err.message}` }, 500);
 		}
 
