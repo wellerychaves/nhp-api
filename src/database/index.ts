@@ -1,5 +1,5 @@
-import { drizzle } from "drizzle-orm/postgres-js";
-import postgres from "postgres";
+import { drizzle } from "drizzle-orm/node-postgres";
+import { Pool } from "pg";
 import * as matchesSchema from "./schemas/matches.schema";
 import * as teamsSchema from "./schemas/teams.schema";
 import * as usersSchema from "./schemas/users.schema";
@@ -10,8 +10,11 @@ if (!databaseURL) {
 	throw new Error("DATABASE_URL environment variable is not defined.");
 }
 
-const queryClient = postgres(databaseURL);
-export const db = drizzle(queryClient, {
+const pool = new Pool({
+	connectionString: databaseURL,
+});
+
+export const db = drizzle(pool, {
 	schema: {
 		...matchesSchema,
 		...teamsSchema,
