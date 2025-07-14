@@ -1,5 +1,5 @@
 import type { Context } from "hono";
-import { z } from "zod/v4";
+import { z } from "zod";
 import { createTeamSchema } from "../../interfaces/team.interface";
 import { createTeamService } from "../../services/teams/teamCreate.service";
 
@@ -15,6 +15,10 @@ export const createTeamController = async (c: Context) => {
 		if (err instanceof Error) {
 			if (err instanceof z.ZodError) {
 				return c.json({ message: err.issues }, 400);
+			}
+
+			if (err.message === "This team is already registered") {
+				return c.json({ message: err.message }, 409);
 			}
 
 			return c.json({ message: `An unexpected error occurred: ${err.message}` }, 500);
