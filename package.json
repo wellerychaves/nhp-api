@@ -6,14 +6,14 @@
 		"migrate": "bunx drizzle-kit migrate"
 	},
 	"dependencies": {
-		"@hono/zod-validator": "^0.7.0",
-		"drizzle-orm": "^0.44.2",
-		"hono": "^4.8.4",
+		"@hono/zod-validator": "^0.7.1",
+		"drizzle-orm": "^0.44.3",
+		"hono": "^4.8.5",
 		"pg": "^8.16.3",
-		"zod": "^3.25.74"
+		"zod": "4.0.5"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.0.6",
+		"@biomejs/biome": "2.1.1",
 		"@types/bun": "^1.2.18",
 		"@types/pg": "^8.15.4",
 		"drizzle-kit": "^0.31.4"
