@@ -9,11 +9,8 @@ const app = new Hono();
 app.use(
 	"*",
 	cors({
-		origin: "*",
+		origin: ["https://nhp.wellery.site/", "http://nhp.wellery.site/"],
 	}),
-	/* cors({
-		origin: "https://nhp.wellery.site/",
-	}), */
 );
 
 app.route("/", routes);
@@ -26,3 +23,5 @@ serve({
 	fetch: app.fetch,
 	port: port,
 });
+
+console.log(`app running on port: ${port}`);
