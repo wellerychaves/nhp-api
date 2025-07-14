@@ -1,4 +1,4 @@
-import { z } from "zod/v4";
+import { z } from "zod";
 import { timestampsZod } from "../database/helpers/timestamps.helpers";
 
 export const matchSchema = z.object({

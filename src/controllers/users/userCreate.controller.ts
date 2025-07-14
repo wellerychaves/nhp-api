@@ -1,5 +1,5 @@
 import type { Context } from "hono";
-import { z } from "zod/v4";
+import { z } from "zod";
 import { createUserSchema } from "../../interfaces/user.interface";
 import { createUserService } from "../../services/users/userCreate.service";
 

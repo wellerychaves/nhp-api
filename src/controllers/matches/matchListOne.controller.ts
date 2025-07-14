@@ -1,5 +1,5 @@
 import type { Context } from "hono";
-import { z } from "zod/v4";
+import { z } from "zod";
 import { listOneMatchService } from "../../services/matches/matchListOne.service";
 import { uuidValidation } from "../../utils/validations/uuid.validation";
 

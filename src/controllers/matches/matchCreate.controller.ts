@@ -1,5 +1,5 @@
 import type { Context } from "hono";
-import { z } from "zod/v4";
+import { z } from "zod";
 import { createMatchSchema } from "../../interfaces/match.interface";
 import { createMatchService } from "../../services/matches/matchCreate.service";
 
